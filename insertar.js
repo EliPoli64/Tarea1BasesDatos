@@ -11,7 +11,18 @@ function insertarEmpleado() {
         alert("Por favor ingrese un salario válido (número positivo).");
         return;
     }
-    
+    fetch(`http://25.42.57.218:5000/proyecto/insert/${nombreEmpleado}/${parseFloat(salarioEmpleado).toFixed(2).toString()}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data[0].Codigo == 200) {
+                alert(`Empleado ${nombreEmpleado} con el salario ${parseFloat(salarioEmpleado).toFixed(2).toString()} insertado correctamente.`);
+            } else {
+                alert(`Error al insertar el empleado: ${data[0].Mensaje}`);
+            }
+            console.log(data[0]);
+            document.getElementById('name').value = '';
+            document.getElementById('salary').value = '';
+        })
 }
 
 function volverPagPrincipal() {
